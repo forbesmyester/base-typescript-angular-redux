@@ -1,37 +1,45 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
+import { AppState } from "./reducers";
+import { NgRedux, select } from "ng2-redux";
 
 @Component({
-    selector: 'my-app',
+    selector: "my-app",
     template: `
-        <h1>My 2nd Angular App</h1>
+        <h1>My 1st ngRedux/Angular App</h1>
+        {{ values | async }}
         <ul>
-            <li *ngFor="let v of values"><span>x{{ v }}</span></li>
-            <li [hidden]="!form.n"><span style="opacity: 0.5">{{ form.n }}</span></li>
+            <li *ngFor="let v of values | async"><span>{{ v }}</span></li>
+            <li [hidden]="!(futureValue | async)"><span style="opacity: 0.5">{{ futureValue | async }}</span></li>
         </ul>
-        <form>
-            <label>Push:<input [(ngModel)]="form.n" name="n" type="number" #spy/></label>
-            <button (click)="push(form)" type="submit">Submit</button>
-        </form>
+        <form-holder
+            (onNewValue)="onFutureValue($event)"
+            (onSubmit)="onSubmit($event)"
+            [message]="'Please enter and submit a number below'">
+        </form-holder>
     `
 })
 
 export class AppComponent {
-    values: number[];
-    form: { [k: string]: any };
 
-    constructor() {
-        this.values = [1, 2];
-        this.form = { n: 3 };
+    @select() values: Number[];
+    @select() futureValue: Number[];
+
+    onSubmit(n) {
+        this.ngRedux.dispatch({ type: 'push', value: n });
     }
 
-    push(f) {
-        console.log(f);
-        this.values.push(f.n);
+    onFutureValue(n) {
+        console.log("N: ", n);
+        if (!n) {
+            return this.ngRedux.dispatch({ type: 'futureValueRemoved' });
+        }
+        this.ngRedux.dispatch({
+            type: 'futureValueAssigned',
+            futureValue: n
+        });
     }
 
-    inc() {
-        this.values = this.values.concat(this.values.length);
-        console.log('values = ' + this.values);
-    }
+    constructor(private ngRedux: NgRedux<AppState>) { }
+
 }
 
