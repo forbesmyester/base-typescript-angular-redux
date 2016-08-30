@@ -7,7 +7,7 @@
     "lite": "lite-server -c lite-server.json",
     "postinstall": "typings install",
     "tsc": "npm run lint && tsc",
-    "tsc:w": "tsc -w",
+    "tsc:w": "npm run lint && tsc -w",
     "typings": "typings"
   },
   "license": "ISC",

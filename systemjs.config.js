@@ -10,6 +10,7 @@
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     'rxjs':                       'node_modules/rxjs',
 
+    'redux-logger':               'node_modules/redux-logger',
     'redux':                      'node_modules/redux',
     'ramda':                      'node_modules/ramda',
     'ng2-redux':                  'node_modules/ng2-redux',
@@ -17,10 +18,11 @@
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app':                        { main: 'main.js',  defaultExtension: 'js' },
-    'rxjs':                       { defaultExtension: 'js' },
+    'rxjs':                       { main: 'Rx.js', defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
 
     'redux':                      { main: "dist/redux.js", defaultExtension: 'js' },
+    'redux-logger':               { main: "dist/index.js", defaultExtension: 'js' },
     'ramda':                      { main: 'dist/ramda.min.js',
                                     defaultExtension: 'js' },
     'ng2-redux':                  { main: 'lib/index.js',

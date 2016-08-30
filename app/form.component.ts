@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, Input } from "@angular/core";
+import EventBus from './event-bus.service';
 
 export interface Form {
     n: number;
@@ -21,11 +22,18 @@ export class FormComponent {
     private form: Form = { n: 0 };
     @Output() onNewValue = new EventEmitter<number>();
     @Output() onSubmit = new EventEmitter<number>();
+    private e: EventBus;
 
-    constructor() { }
+    constructor() {
+        this.e = new EventBus();
+        this.e.sub((e) => {
+            console.log("E: ", e);
+        });
+    }
 
     s(f: Form) {
         this.onSubmit.emit(f.n);
+        this.e.pub({type: "FormSubmit"});
     }
 
     c() {
