@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import * as Actions from './actions';
 
-export interface AppState { a?: false, values: Number[]; };
+export interface AppState { a?: false; values: Number[]; };
 export const INITIAL_STATE = { values: [1, 2] };
 
 export function rootReducer(state, action: Actions.Action) {
