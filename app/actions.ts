@@ -4,3 +4,4 @@ export interface Action {
 
 export interface FutureValueAssigned extends Action { futureValue: number; }
 export interface Push extends Action { value: number; }
+export interface A extends Action {}

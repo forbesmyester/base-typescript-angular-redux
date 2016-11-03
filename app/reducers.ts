@@ -1,11 +1,13 @@
 import * as R from 'ramda';
 import * as Actions from './actions';
 
-export interface AppState { values: Number[]; };
+export interface AppState { a?: false, values: Number[]; };
 export const INITIAL_STATE = { values: [1, 2] };
 
-export function rootReducer(state, action: Actions.FutureValueAssigned | Actions.Push) {
+export function rootReducer(state, action: Actions.Action) {
     switch (action.type) {
+        case 'a':
+            return R.assoc('a', true, state);
         case 'futureValueRemoved':
             return R.dissoc('futureValue', state);
         case 'futureValueAssigned':

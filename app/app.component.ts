@@ -7,6 +7,7 @@ import { NgRedux, select } from "ng2-redux";
     template: `
         <h1>My 1st ngRedux/Angular App</h1>
         {{ values | async }}
+        <span [hidden]="!(a | async)">A</span>
         <ul>
             <li *ngFor="let v of values | async"><span>{{ v }}</span></li>
             <li [hidden]="!(futureValue | async)"><span style="opacity: 0.5">{{ futureValue | async }}</span></li>
@@ -21,6 +22,7 @@ import { NgRedux, select } from "ng2-redux";
 
 export class AppComponent {
 
+    @select() a: boolean;
     @select() values: Number[];
     @select() futureValue: Number[];
 
